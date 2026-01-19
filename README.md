@@ -2,8 +2,9 @@
 go workspace
 
 # start project
-go mod init primitive-types
+go mod init primitivetypes
 
-# run
-go run . 
+# execute main program
+go run .
+
 go run main.go
