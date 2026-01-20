@@ -4,6 +4,7 @@ import (
 	"log"
 	"math/rand/v2"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -27,7 +28,7 @@ var seqNumber = rand.IntN(1000)
 func InitializeRoutes(engine *gin.Engine) {
 	log.Println("albums routes initialization..")
 	engine.POST("/albums", saveAlbums)
-	engine.GET("/albums:id", getAlbumsById)
+	engine.GET("/albums/:id", getAlbumsById)
 	engine.GET("/albums", getAlbums)
 	log.Println("albums routes initialized")
 }
@@ -52,10 +53,28 @@ func saveAlbums(c *gin.Context) {
 
 func getAlbumsById(c *gin.Context) {
 	log.Println("album get request", c)
-	id := c.Params.ByName("id")
-	log.Println(id)
+	id, _ := strconv.Atoi(c.Params.ByName("id"))
+	response := store[id]
+	c.JSON(http.StatusOK, gin.H{
+		"body": response,
+	})
+
 }
 
 func getAlbums(c *gin.Context) {
 	log.Println("album get request")
+	albums := []AlbumRespone{}
+	for _, v := range store {
+		albums = append(albums, v)
+	}
+	if len(albums) > 0 {
+		c.JSON(http.StatusOK, gin.H{
+			"body": albums,
+		})
+		return
+	} else {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "No data found",
+		})
+	}
 }
