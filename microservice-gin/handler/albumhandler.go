@@ -54,7 +54,7 @@ func saveAlbums(c *gin.Context) {
 	err := c.ShouldBindJSON(&request)
 	if err != nil {
 		log.Println("error in saveAlbums=", err)
-		c.JSON(http.StatusBadRequest, gin.H{"error": "content not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "bad request"})
 		return
 	}
 	log.Println("album request body=", request)

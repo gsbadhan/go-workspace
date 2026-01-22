@@ -1,7 +1,7 @@
-# Build microserver with gin web framework
+# Build microservice with gin web framework
 
 # setup module
-go mod init microserver-gin
+go mod init microservice-gin
 
 # add gin dependency
 go get github.com/gin-gonic/gin
