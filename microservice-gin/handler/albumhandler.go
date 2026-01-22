@@ -9,12 +9,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+/*
+Album request for API
+*/
 type AlbumRequest struct {
 	Title  string  `json:"title" binding:"required"`
 	Artist string  `json:"artist" binding:"required"`
 	Price  float64 `json:"price" binding:"required"`
 }
 
+/*
+Album response for API
+*/
 type AlbumRespone struct {
 	Id     int     `json:"Id"`
 	Title  string  `json:"title"`
@@ -22,9 +28,15 @@ type AlbumRespone struct {
 	Price  float64 `json:"price"`
 }
 
+// in-memory store
 var store = make(map[int]AlbumRespone, 0)
+
+// Random ID generator
 var seqNumber = rand.IntN(1000)
 
+/*
+define and initialise API endpoints
+*/
 func InitializeRoutes(engine *gin.Engine) {
 	log.Println("albums routes initialization..")
 	engine.POST("/albums", saveAlbums)
@@ -33,6 +45,9 @@ func InitializeRoutes(engine *gin.Engine) {
 	log.Println("albums routes initialized")
 }
 
+/*
+save new album
+*/
 func saveAlbums(c *gin.Context) {
 	log.Println("album post request", c)
 	var request AlbumRequest
@@ -51,6 +66,9 @@ func saveAlbums(c *gin.Context) {
 	})
 }
 
+/*
+Get existing album by ID
+*/
 func getAlbumsById(c *gin.Context) {
 	log.Println("album get request", c)
 	id, _ := strconv.Atoi(c.Params.ByName("id"))
@@ -61,6 +79,9 @@ func getAlbumsById(c *gin.Context) {
 
 }
 
+/*
+Get all albums
+*/
 func getAlbums(c *gin.Context) {
 	log.Println("album get request")
 	albums := []AlbumRespone{}

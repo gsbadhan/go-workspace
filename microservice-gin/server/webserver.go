@@ -7,6 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+/*
+Start HTTP web server
+*/
+
 func StartServer() {
 	log.Println("building gin router..")
 	router := gin.Default()
