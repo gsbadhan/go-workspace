@@ -14,7 +14,7 @@ go run main.go
 `curl http://localhost:8090/albums     --include     --header "Content-Type: application/json"     --request "POST"     --data '{"title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'`
 
 # get album by id
-`curl http://localhost:8090/albums/1     --include     --header "Content-Type: application/json"     --request "GET"`
+`curl http://localhost:8090/albums/235     --include     --header "Content-Type: application/json"     --request "GET"`
 
 # get all albums
 `curl http://localhost:8090/albums     --include     --header "Content-Type: application/json"     --request "GET"`
