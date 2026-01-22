@@ -12,5 +12,6 @@ func StartServer() {
 	router := gin.Default()
 	log.Println("gin router created", router)
 	handler.InitializeRoutes(router)
-	router.Run("0.0.0.0:8090")
+	err := router.Run("0.0.0.0:8090")
+	panic(err)
 }

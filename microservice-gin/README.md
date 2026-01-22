@@ -6,6 +6,10 @@ go mod init microserver-gin
 # add gin dependency
 go get github.com/gin-gonic/gin
 
+# start app
+go run main.go
+
+
 # save album
 `curl http://localhost:8090/albums     --include     --header "Content-Type: application/json"     --request "POST"     --data '{"title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'`
 
@@ -14,6 +18,7 @@ go get github.com/gin-gonic/gin
 
 # get all albums
 `curl http://localhost:8090/albums     --include     --header "Content-Type: application/json"     --request "GET"`
+
 
 
 
