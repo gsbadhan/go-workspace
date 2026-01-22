@@ -19,6 +19,9 @@ go run main.go
 # get all albums
 `curl http://localhost:8090/albums     --include     --header "Content-Type: application/json"     --request "GET"`
 
+# check service health
+`curl http://localhost:8090/health     --include     --header "Content-Type: application/json"     --request "GET"`
+
 
 
 
