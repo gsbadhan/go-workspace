@@ -21,7 +21,7 @@ type AlbumRequest struct {
 /*
 Album response for API
 */
-type AlbumRespone struct {
+type AlbumResponse struct {
 	Id     int     `json:"Id"`
 	Title  string  `json:"title"`
 	Artist string  `json:"artist"`
@@ -29,7 +29,7 @@ type AlbumRespone struct {
 }
 
 // in-memory store
-var store = make(map[int]AlbumRespone, 0)
+var store = make(map[int]AlbumResponse, 0)
 
 // Random ID generator
 var seqNumber = rand.IntN(1000)
@@ -59,7 +59,7 @@ func saveAlbums(c *gin.Context) {
 	}
 	log.Println("album request body=", request)
 	id := rand.IntN(1000)
-	response := AlbumRespone{Id: id, Title: request.Title, Artist: request.Artist, Price: request.Price}
+	response := AlbumResponse{Id: id, Title: request.Title, Artist: request.Artist, Price: request.Price}
 	store[id] = response
 	c.JSON(http.StatusCreated, gin.H{
 		"body": response,
@@ -84,7 +84,7 @@ Get all albums
 */
 func getAlbums(c *gin.Context) {
 	log.Println("album get request")
-	albums := []AlbumRespone{}
+	albums := []AlbumResponse{}
 	for _, v := range store {
 		albums = append(albums, v)
 	}
