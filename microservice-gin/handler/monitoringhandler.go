@@ -11,9 +11,9 @@ import (
 /*
 define and initialise monitoring APIs endpoints
 */
-func InitializeMonitoring(engine *gin.Engine) {
+func InitializeMonitoringRoutes(publicGroupRouter *gin.RouterGroup) {
 	log.Println("monitoring initialization..")
-	engine.GET("/health", health)
+	publicGroupRouter.GET("/health", health)
 	log.Println("monitoring initialized")
 }
 

@@ -37,11 +37,11 @@ var seqNumber = rand.IntN(1000)
 /*
 define and initialise API endpoints
 */
-func InitializeRoutes(engine *gin.Engine) {
+func InitializeAlbumRoutes(privateGroupRouter *gin.RouterGroup) {
 	log.Println("albums routes initialization..")
-	engine.POST("/albums", saveAlbums)
-	engine.GET("/albums/:id", getAlbumsById)
-	engine.GET("/albums", getAlbums)
+	privateGroupRouter.POST("/albums", saveAlbums)
+	privateGroupRouter.GET("/albums/:id", getAlbumsById)
+	privateGroupRouter.GET("/albums", getAlbums)
 	log.Println("albums routes initialized")
 }
 
@@ -54,7 +54,7 @@ func saveAlbums(c *gin.Context) {
 	err := c.ShouldBindJSON(&request)
 	if err != nil {
 		log.Println("error in saveAlbums=", err)
-		c.JSON(http.StatusBadRequest, gin.H{"error": "bad request"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request"})
 		return
 	}
 	log.Println("album request body=", request)
@@ -95,7 +95,7 @@ func getAlbums(c *gin.Context) {
 		return
 	} else {
 		c.JSON(http.StatusNotFound, gin.H{
-			"error": "No data found",
+			"error": "No album data found",
 		})
 	}
 }
