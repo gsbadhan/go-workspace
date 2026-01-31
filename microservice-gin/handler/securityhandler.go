@@ -38,12 +38,12 @@ func EnableJwtSecurity(engine *gin.Engine, publicGroupRouter *gin.RouterGroup, p
 		Timeout:         (10 * time.Minute),
 		MaxRefresh:      (15 * time.Minute),
 		IdentityKey:     identityKey,
-		PayloadFunc:     payloadFunc(),
-		IdentityHandler: identityHandler(),
-		Authenticator:   loginAuthenticator(),
-		Authorizer:      authorizer(),
-		Unauthorized:    unauthorized(),
-		LogoutResponse:  logoutResponse(),
+		PayloadFunc:     payloadFunc(),        // login
+		IdentityHandler: identityHandler(),    // all album/health apis, refresh token api, logout api
+		Authenticator:   loginAuthenticator(), // login
+		Authorizer:      authorizer(),         // all album/health apis, refresh token api, logout api
+		Unauthorized:    unauthorized(),       // invalid/expired token, invalid login credentials
+		LogoutResponse:  logoutResponse(),     //logout api
 		TokenHeadName:   "Bearer",
 		TimeFunc:        time.Now,
 	})
@@ -70,6 +70,7 @@ func EnableJwtSecurity(engine *gin.Engine, publicGroupRouter *gin.RouterGroup, p
 }
 
 func signingSecretKey() []byte {
+	log.Println("processing in signingSecretKey")
 	return []byte("secret key value")
 }
 
