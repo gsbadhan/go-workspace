@@ -17,10 +17,14 @@ func StartServer() {
 	log.Println("gin router created", engine)
 	publicGroupRouter := engine.Group("/public")
 	privateGroupRouter := engine.Group("/private")
+
 	// enable or disable JWT security
 	handler.EnableJwtSecurity(engine, publicGroupRouter, privateGroupRouter)
+	// enable or disable album routes
 	handler.InitializeAlbumRoutes(privateGroupRouter)
+	// enable or disable health check routes
 	handler.InitializeMonitoringRoutes(publicGroupRouter)
+
 	err := engine.Run("0.0.0.0:8090")
 	panic(err)
 }
