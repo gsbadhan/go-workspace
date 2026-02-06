@@ -20,7 +20,7 @@ go run main.go
 `curl http://localhost:8090/private/albums     --include     --header "Content-Type: application/json"     --request "GET"`
 
 ## check service health
-`curl http://localhost:8090/public/health     --include     --header "Content-Type: application/json"     --request "GET"`
+`curl http://localhost:8090/private/health     --include     --header "Content-Type: application/json"     --request "GET"`
 
 
 # endpoints with JWT security
@@ -32,16 +32,31 @@ go run main.go
 `curl http://localhost:8090/private/albums \
   --include \
   --header "Content-Type: application/json" \
-  --header "Authorization: Bearer <access token>" \
+  --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzAxMzE2MTcsImlkIjoiYWRtaW4iLCJvcmlnX2lhdCI6MTc3MDEzMTAxN30.Rn3UpCybB5y3iBK0sH53AOCeGIEPbl6gL3L6neYv4Dg" \
+  --request "GET"`
+
+ ## save album
+`curl http://localhost:8090/private/albums \
+--include \
+--header "Content-Type: application/json" \
+--header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzAxMzE2MTcsImlkIjoiYWRtaW4iLCJvcmlnX2lhdCI6MTc3MDEzMTAxN30.Rn3UpCybB5y3iBK0sH53AOCeGIEPbl6gL3L6neYv4Dg" \
+--request "POST" \
+--data '{"title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'` 
+
+## get album by id
+`curl http://localhost:8090/private/albums/376 \
+  --include \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzAxMzE2MTcsImlkIjoiYWRtaW4iLCJvcmlnX2lhdCI6MTc3MDEzMTAxN30.Rn3UpCybB5y3iBK0sH53AOCeGIEPbl6gL3L6neYv4Dg" \
   --request "GET"`
 
 ## refresh jwt token
 `curl http://localhost:8090/private/refresh \
   --include \
   --header "Content-Type: application/json" \
-  --header "Authorization: Bearer <access token>" \
+  --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzAxMzE2MTcsImlkIjoiYWRtaW4iLCJvcmlnX2lhdCI6MTc3MDEzMTAxN30.Rn3UpCybB5y3iBK0sH53AOCeGIEPbl6gL3L6neYv4Dg" \
   --data '{
-    "refresh_token": "<refresh token>"
+    "refresh_token": "scq3lWUhmQzJ6s3khA0vMSBZWFeVbkxQYUFwXoWRUU0="
   }' \
   --request "POST"`
 
@@ -49,7 +64,7 @@ go run main.go
 `curl http://localhost:8090/private/logout \
   --include \
   --header "Content-Type: application/json" \
-  --header "Authorization: Bearer <access token>" \
+  --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzAxMzE2MTcsImlkIjoiYWRtaW4iLCJvcmlnX2lhdCI6MTc3MDEzMTAxN30.Rn3UpCybB5y3iBK0sH53AOCeGIEPbl6gL3L6neYv4Dg" \
   --request "POST"`
 
 

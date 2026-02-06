@@ -76,7 +76,7 @@ func signingSecretKey() []byte {
 
 func payloadFunc() func(data any) goJwt.MapClaims {
 	return func(data any) goJwt.MapClaims {
-		log.Println("processing in payloadFunc %v", data)
+		log.Printf("processing in payloadFunc %v", data)
 		if v, ok := data.(*User); ok {
 			return goJwt.MapClaims{
 				identityKey: v.UserName,
@@ -89,7 +89,7 @@ func payloadFunc() func(data any) goJwt.MapClaims {
 func identityHandler() func(c *gin.Context) any {
 	return func(c *gin.Context) any {
 		claims := ginJwt.ExtractClaims(c)
-		log.Println("processing in identityHandler %v", claims)
+		log.Printf("processing in identityHandler %v", claims)
 		return &User{
 			UserName: claims[identityKey].(string),
 		}
@@ -104,7 +104,7 @@ func noRoute() func(c *gin.Context) {
 
 func loginAuthenticator() func(c *gin.Context) (any, error) {
 	return func(c *gin.Context) (any, error) {
-		log.Println("processing in loginAuthenticator %v", c)
+		log.Printf("processing in loginAuthenticator %v", c)
 		var loginVals loginRequest
 		if err := c.ShouldBind(&loginVals); err != nil {
 			return "", ginJwt.ErrMissingLoginValues
@@ -125,7 +125,7 @@ func loginAuthenticator() func(c *gin.Context) (any, error) {
 
 func authorizer() func(c *gin.Context, data any) bool {
 	return func(c *gin.Context, data any) bool {
-		log.Println("processing in authorizer %v", c)
+		log.Printf("processing in authorizer %v", c)
 		if u, ok := data.(*User); ok {
 			if _, exist := authorisedUserStore[u.UserName]; exist {
 				return true
@@ -137,7 +137,7 @@ func authorizer() func(c *gin.Context, data any) bool {
 
 func unauthorized() func(c *gin.Context, code int, message string) {
 	return func(c *gin.Context, code int, message string) {
-		log.Println("processing in unauthorized %v", c)
+		log.Printf("processing in unauthorized %v", c)
 		c.JSON(code, gin.H{
 			"code":    code,
 			"message": message,
@@ -148,7 +148,7 @@ func unauthorized() func(c *gin.Context, code int, message string) {
 func logoutResponse() func(c *gin.Context) {
 	return func(c *gin.Context) {
 		claims := ginJwt.ExtractClaims(c)
-		log.Println("processing in logoutResponse %v", claims)
+		log.Printf("processing in logoutResponse %v", claims)
 		user, exists := c.Get(identityKey)
 		log.Println("user logout:", claims, user, exists)
 

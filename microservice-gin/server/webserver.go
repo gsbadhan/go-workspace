@@ -23,7 +23,7 @@ func StartServer() {
 	// enable or disable album routes
 	handler.InitializeAlbumRoutes(privateGroupRouter)
 	// enable or disable health check routes
-	handler.InitializeMonitoringRoutes(publicGroupRouter)
+	handler.InitializeMonitoringRoutes(privateGroupRouter)
 
 	err := engine.Run("0.0.0.0:8090")
 	panic(err)
